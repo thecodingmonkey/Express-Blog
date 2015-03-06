@@ -35,6 +35,7 @@ app.put('/blog/:id', function (req, res) {
 app.get('/blog', function (req, res) {
   // delete blog post
 });
+app.use(express.static('public/'));
 
 
 
