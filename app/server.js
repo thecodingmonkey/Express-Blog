@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.set('view engine', 'jade');
 app.use(methodOverride('_method'));
+app.use(express.static(__dirname + '/../public'));
 
 mongoose.connect('mongodb://devleague:devleague-user@ds049661.mongolab.com:49661/express-blog');
 
@@ -81,31 +82,6 @@ app.get('/blog/:id/edit', function (req, res) {
   });
 
 });
-app.put('/blog/:id', function (req, res) {
-  // update existing blog post
-
-  Blog.where({_id : req.params.id})
-    .update(
-      { $set: {
-        author: req.body.author,
-        title: req.body.title,
-        body: req.body.body
-        }
-      }, function(err) {
-        res.send('OK');
-      }
-    );
-
-});
-app.delete('/blog/:id', function (req, res) {
-  // delete blog post
-  Blog.remove( {
-    _id : req.params.id,
-    }, function(err) {
-      res.send('OK');
-    });
-});
-app.use(express.static('public/'));
 
 
 

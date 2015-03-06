@@ -2,3 +2,45 @@
 @import "partials/settings";
 @import "partials/foundation";
 @import url(http://fonts.googleapis.com/css?family=Bangers);
+
+body{
+ border: solid black 1px;
+ height: auto;
+ width: auto; 
+ h1{
+  text-align: center;
+  padding: 40px;
+ }
+ div.panel{
+  width: 75%;
+  margin-left: 12.4%;
+  margin-bottom: 80px;
+  border: solid black 1px;
+  height: 400px;
+  overflow: hidden;
+  .innerpanel{
+    // background-image: url('http://s3.amazonaws.com/rapgenius/haha1.gif');
+    .top{
+      height: 265px;
+      display: inline-block;
+      width: 100%;
+    }
+    .bottom{
+      height: 135px;
+      width: 100%;
+      background: #777777;
+      // backgroundopacity: .7;
+      h2{
+        font-size: 14px;
+        // opacity: 1;
+      }
+      h3{
+        font-size: 14px;
+      }
+      h4{
+        font-size: 14px;
+      }
+    }
+  }
+ }
+}

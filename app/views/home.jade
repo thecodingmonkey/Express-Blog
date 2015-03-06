@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 html(lang="en")
-head
-  meta(charset="UTF-8")
-  title Document
-body
-  h1.title hooray <!--title-->
+  head
+    meta(charset="UTF-8")
+    title Document
+    link(rel='stylesheet', href='/css/styles.css', media='screen')
+    link(rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.css")
+    script(type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js")
+    script(type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js")
+    script(type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.min.js")
+  body
+    h1.title hooray <!--title-->
     each blog in blogs
       div.panel<!--will create a new panel for each blog object-->
         each url in blog.url
-          div.innerpannel<!--will create an inner pannel i can slide for the background images-->
+          div.innerpanel<!--will create an inner pannel i can slide for the background images-->
             div.top
-              div.right sdf
-              div.left dsf
+              div.right &gt;
+              div.left &#60;
             div.bottom
-              h2!= url.time  
-              h3!= url.title 
-              h4!= url.body
-              a(href="/blog/#{url.id}")
-                button.nextpage
+              h2!= blog.timestamp
+              h3!= blog.title 
+              h4!= blog.body
+              a(href="/blog/#{blog._id}")
+                button.nextpage READ MORE
