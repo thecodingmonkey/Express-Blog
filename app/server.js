@@ -1,13 +1,19 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var bodyParser = require('body-parser');
 var livereload = require('connect-livereload');
 var livereloadport = 35729;
+var methodOverride = require('method-override');
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(livereload({port: livereloadport}));
-
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json());
 app.set('view engine', 'jade');
+app.use(methodOverride('_method'));
+
+
 app.get('/', function (req, res) {
   res.render('home');
 });

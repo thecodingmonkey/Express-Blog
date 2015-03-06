@@ -6,26 +6,26 @@ var livereloadport = 35729;
 
 gulp.task('server', function () {
   //restart on app.js changes
-  nodemon({ script : './add/server.js'})
+  nodemon({ script : './app/server.js'})
     .on('restart', function () {
       console.log('Going to restart server!')
       setTimeout(function () {
         console.log('Restarted server!')
-        refresh.changed("./app/server.js")
-      }, 500)
+        refresh.changed("./app/server.js");
+      }, 500);
     });
 
 });
 
 gulp.task('sass', function () {
   return gulp.src('./sass/**/*.scss')
-    .pipe(sass( { errLogToConsole : true } ));
+    .pipe(sass( { errLogToConsole : true } ))
     .pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('watch', function () {
   //listen for live reload 
-  require.listen(livereloadport);
+  refresh.listen(livereloadport);
   gulp.watch('./sass/**/*.scss', ['sass']);
   //live reload for jade template changes or static assets change
   gulp.watch([
