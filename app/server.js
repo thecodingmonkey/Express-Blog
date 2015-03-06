@@ -38,7 +38,7 @@ app.get('/', function (req, res) {
 
     console.log(blogs);
 
-    res.render('home', blogs);
+    res.render('home', {blogs: blogs} );
     
   });
 });
