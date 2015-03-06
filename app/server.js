@@ -43,8 +43,8 @@ app.get('/', function (req, res) {
   });
 });
 app.get('/blog/:id', function (req, res) {
-  Blog.find({id: req.params.id}, function(err, blog) {
-    res.render('edit', {  
+  Blog.find({_id: req.params.id}, function(err, blog) {
+    res.render('blog', {  
       timestamp: blog.timestamp,
       author: blog.author,
       title: blog.title,
@@ -75,12 +75,35 @@ app.post('/blog', function (req, res) {
 });
 app.get('/blog/:id/edit', function (req, res) {
   // edit existing blog post
+
+  Blog.find({_id: req.params.id}, function(err, blog) {
+    res.render('edit', blog);
+  });
+
 });
 app.put('/blog/:id', function (req, res) {
   // update existing blog post
+
+  Blog.where({_id : req.params.id})
+    .update(
+      { $set: {
+        author: req.body.author,
+        title: req.body.title,
+        body: req.body.body
+        }
+      }, function(err) {
+        res.send('OK');
+      }
+    );
+
 });
-app.get('/blog', function (req, res) {
+app.delete('/blog/:id', function (req, res) {
   // delete blog post
+  Blog.remove( {
+    _id : req.params.id,
+    }, function(err) {
+      res.send('OK');
+    });
 });
 app.use(express.static('public/'));
 
