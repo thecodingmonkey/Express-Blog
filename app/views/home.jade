@@ -4,4 +4,17 @@ head
   meta(charset="UTF-8")
   title Document
 body
-  h1 BOOOO
+  h1.title hooray <!--title-->
+    each blog in blogs
+      div.panel<!--will create a new panel for each blog object-->
+        each url in blog.url
+          div.innerpannel<!--will create an inner pannel i can slide for the background images-->
+            div.top
+              div.right sdf
+              div.left dsf
+            div.bottom
+              h2!= url.time  
+              h3!= url.title 
+              h4!= url.body
+              a(href="/blog/#{url.id}")
+                button.nextpage
