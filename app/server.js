@@ -45,11 +45,7 @@ app.get('/', function (req, res) {
 app.get('/blog/:id', function (req, res) {
   Blog.find({_id: req.params.id}, function(err, blog) {
     res.render('curr_blog', {  
-      timestamp: blog.timestamp,
-      author: blog.author,
-      title: blog.title,
-      body: blog.body,
-      url: blog.url,
+      blog: blog,
     });
   });
 
@@ -80,30 +76,6 @@ app.get('/blog/:id/edit', function (req, res) {
     res.render('edit', blog);
   });
 
-});
-app.put('/blog/:id', function (req, res) {
-  // update existing blog post
-
-  Blog.where({_id : req.params.id})
-    .update(
-      { $set: {
-        author: req.body.author,
-        title: req.body.title,
-        body: req.body.body
-        }
-      }, function(err) {
-        res.send('OK');
-      }
-    );
-
-});
-app.delete('/blog/:id', function (req, res) {
-  // delete blog post
-  Blog.remove( {
-    _id : req.params.id,
-    }, function(err) {
-      res.send('OK');
-    });
 });
 app.use(express.static('public/'));
 
