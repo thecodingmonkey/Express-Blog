@@ -1,15 +1,18 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var livereload = require('connect-livereload');
+var livereloadport = 35729;
 
 app.set('views', path.join(__dirname, 'views'));
+app.use(livereload({port: livereloadport}));
 
 app.set('view engine', 'jade');
 app.get('/', function (req, res) {
   res.render('home');
 });
 app.get('/blog/:id', function (req, res) {
-  res.render('blogpost', {id: req.params.id});
+  res.render('edit', {id: req.params.id});
 });
 app.get('/new_blog', function (req, res) {
   res.render('new');
