@@ -6,6 +6,8 @@ var mongoose = require('mongoose');
 var livereload = require('connect-livereload');
 var livereloadport = 35729;
 var methodOverride = require('method-override');
+var router = express.Router();
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(livereload({port: livereloadport}));
@@ -33,7 +35,7 @@ var blogSchema = new Schema({
 
 var Blog = mongoose.model('Blog', blogSchema);
 
-app.get('/', function (req, res) {
+router.list = function(req, res) {
   Blog.find( function(err, blogs) {
     if (err) throw err;
 
@@ -42,23 +44,19 @@ app.get('/', function (req, res) {
     res.render('home', {blogs: blogs} );
     
   });
-});
-app.get('/blog/:id', function (req, res) {
+};
+router.get('/:id', function (req, res) {
   Blog.find({_id: req.params.id}, function(err, blog) {
     res.render('curr_blog', {  
-      timestamp: blog.timestamp,
-      author: blog.author,
-      title: blog.title,
-      body: blog.body,
-      url: blog.url,
+      blog: blog,
     });
   });
 
 });
-app.get('/new_blog', function (req, res) {
+router.get('/new', function (req, res) {
   res.render('new');
 });
-app.post('/blog', function (req, res) {
+router.post('/', function (req, res) {
   var item = new Blog({
     timestamp: Date(),
     author: req.body.author,
@@ -82,8 +80,12 @@ app.get('/blog/:id/edit', function (req, res) {
   });
 
 });
+router.put('/:id', function (req, res) {
 
+});
+router.delete('/:id', function (req, res) {
 
+});
 
 var server = app.listen(3000, function () {
 
