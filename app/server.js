@@ -44,7 +44,7 @@ app.get('/', function (req, res) {
 });
 app.get('/blog/:id', function (req, res) {
   Blog.find({_id: req.params.id}, function(err, blog) {
-    res.render('blog', {  
+    res.render('curr_blog', {  
       timestamp: blog.timestamp,
       author: blog.author,
       title: blog.title,
