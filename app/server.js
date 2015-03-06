@@ -6,6 +6,8 @@ var mongoose = require('mongoose');
 var livereload = require('connect-livereload');
 var livereloadport = 35729;
 var methodOverride = require('method-override');
+var router = express.Router();
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(livereload({port: livereloadport}));
@@ -13,6 +15,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.set('view engine', 'jade');
 app.use(methodOverride('_method'));
+app.use(express.static(__dirname + '/../public'));
 
 mongoose.connect('mongodb://devleague:devleague-user@ds049661.mongolab.com:49661/express-blog');
 
@@ -32,7 +35,7 @@ var blogSchema = new Schema({
 
 var Blog = mongoose.model('Blog', blogSchema);
 
-app.get('/', function (req, res) {
+router.list = function(req, res) {
   Blog.find( function(err, blogs) {
     if (err) throw err;
 
@@ -41,8 +44,8 @@ app.get('/', function (req, res) {
     res.render('home', {blogs: blogs} );
     
   });
-});
-app.get('/blog/:id', function (req, res) {
+};
+router.get('/:id', function (req, res) {
   Blog.find({_id: req.params.id}, function(err, blog) {
     res.render('curr_blog', {  
       blog: blog,
@@ -50,10 +53,10 @@ app.get('/blog/:id', function (req, res) {
   });
 
 });
-app.get('/new_blog', function (req, res) {
+router.get('/new', function (req, res) {
   res.render('new');
 });
-app.post('/blog', function (req, res) {
+router.post('/', function (req, res) {
   var item = new Blog({
     timestamp: Date(),
     author: req.body.author,
@@ -77,9 +80,12 @@ app.get('/blog/:id/edit', function (req, res) {
   });
 
 });
-app.use(express.static('public/'));
+router.put('/:id', function (req, res) {
 
+});
+router.delete('/:id', function (req, res) {
 
+});
 
 var server = app.listen(3000, function () {
 
