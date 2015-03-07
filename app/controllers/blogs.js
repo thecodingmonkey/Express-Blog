@@ -27,9 +27,6 @@ router.authenticate = passport.authenticate('local', {
 });
 
 router.get('/', function (req, res) {
-
-
-
   Blog.find( function(err, blogs) {
     if (err) throw err;
 
