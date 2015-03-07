@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var router = express.Router();
+var router = require('./controllers/blogs.js');
 var bodyParser = require('body-parser');
 var livereload = require('connect-livereload');
 var livereloadport = 35729;
@@ -15,7 +15,7 @@ app.set('view engine', 'jade');
 app.use(methodOverride('_method'));
 app.use(express.static('public/'));
 
-require('./controllers/blogs.js').controller(app);
+app.use('/', router);
 
 var Blog;
 
