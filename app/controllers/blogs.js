@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 var Blog = require('../models/Blog.js');
 var auth = require('./auth');
@@ -20,12 +21,15 @@ router.post('/login', function(res, req) {
 
 });
 
-
+router.authenticate = passport.authenticate('local', {
+  successRedirect: 'blog/admin',
+  failureRedirect: '/login'
+});
 
 router.get('/', function (req, res) {
 
 
-  
+
   Blog.find( function(err, blogs) {
     if (err) throw err;
 
@@ -37,6 +41,7 @@ router.get('/', function (req, res) {
 });
 router.get('/blog/:id', function (req, res) {
   Blog.find({_id: req.params.id}, function(err, blog) {
+    console.log(blog);
     res.render('curr_blog', {  
       blog: blog,
     });

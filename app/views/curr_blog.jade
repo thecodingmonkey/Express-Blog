@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Document
+body
+  each blog_item in blog
+    div.content
+      h2!= blog_item.timestamp
+      h3!= blog_item.title 
+      h4!= blog_item.body

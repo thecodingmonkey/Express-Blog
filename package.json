@@ -10,7 +10,8 @@
     "gulp-livereload": "^3.8.0",
     "jade": "^1.9.2",
     "method-override": "^2.3.1",
-    "mongoose": "^3.8.24"
+    "mongoose": "^3.8.24",
+    "passport": "^0.2.1"
   },
   "devDependencies": {
     "gulp": "^3.8.11",
